@@ -24,7 +24,10 @@ window.addEventListener('load', function(){
             this.height = height;
             this.particleArray = [];
             this.image = document.getElementById('image1');
-
+            this.centerX = this.width * 0.5;
+            this.centerY = this.height * 0.5;
+            this.x = this.centerX - this.image.width * 0.5;
+            this.y = this.centerY - this.image.height * 0.5;
         }
         init(){
             for (let i = 0; i <10; i++){
@@ -33,7 +36,7 @@ window.addEventListener('load', function(){
         }
         draw(context){
             this.particleArray.forEach(Particle => Particle.draw(context));
-            context.drawImage(this.image, 0, 0);
+            context.drawImage(this.image, this.x, this.y);
         }
     }
     
