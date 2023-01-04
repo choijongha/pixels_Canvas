@@ -9,13 +9,14 @@ window.addEventListener('load', function(){
     const image1 = this.document.getElementById('image1');
 
     class Particle {
-        constructor(){
-            this.x = 100;
-            this.y = 150;
+        constructor(effect){
+            this.effect = effect;
+            this.x = Math.random() * this.effect.width;
+            this.y = Math.random() * this.effect.height;
             this.size = 100;
         }
-        draw(){
-            ctx.fillRect(this.x, this.y, this.size, this.size);
+        draw(context){
+            context.fillRect(this.x, this.y, this.size, this.size);
         }
     }
 
@@ -26,16 +27,18 @@ window.addEventListener('load', function(){
             this.particleArray = [];
         }
         init(){
-            this.particleArray.push(new Particle());
+            for (let i = 0; i <10; i++){
+                this.particleArray.push(new Particle(this));
+            }
         }
-        draw(){
-            this.particleArray.forEach(Particle => Particle.draw());
+        draw(context){
+            this.particleArray.forEach(Particle => Particle.draw(context));
         }
     }
     
     const effect = new Effect(canvas.width, canvas.height);
     effect.init();
-    effect.draw();
+    effect.draw(ctx);
     console.log(effect);
     
     function animate(){
