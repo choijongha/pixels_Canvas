@@ -44,7 +44,7 @@ window.addEventListener('load', function(){
                 this.particleArray.push(new Particle(this));
             }*/
             context.drawImage(this.image, this.x, this.y);
-            const pixels = context.getImageData(0,0, this.width, this.height);
+            const pixels = context.getImageData(0,0, this.width, this.height).data;
             console.log(pixels);
             for (let  y= 0; y < this.height; y += this.gap){
                 for (let x = 0; x < this.width; x += this.gap){
