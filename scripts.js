@@ -1,7 +1,7 @@
 window.addEventListener('load', function(){
     const canvas = document.getElementById('canvas1');
     const ctx = canvas.getContext('2d');
-    console.log(ctx);
+    //console.log(ctx);
 
     canvas.width = this.window.innerWidth;
     canvas.height = this.window.innerHeight;
@@ -35,14 +35,16 @@ window.addEventListener('load', function(){
             this.x = this.centerX - this.image.width * 0.5;
             this.y = this.centerY - this.image.height * 0.5;
         }
-        init(){
-            for (let i = 0; i <100; i++){
+        init(context){
+            /*for (let i = 0; i <100; i++){
                 this.particleArray.push(new Particle(this));
-            }
+            }*/
+            context.drawImage(this.image, this.x, this.y);
+            const pixels = context.getImageData(0,0, this.width, this.height);
+            console.log(pixels);
         }
         draw(context){
             this.particleArray.forEach(Particle => Particle.draw(context));
-            context.drawImage(this.image, this.x, this.y);
         }
         update(){
             this.particleArray.forEach(Particle => Particle.update());
@@ -50,9 +52,9 @@ window.addEventListener('load', function(){
     }
     
     const effect = new Effect(canvas.width, canvas.height);
-    effect.init();
+    effect.init(ctx);
 
-    console.log(effect);
+    //console.log(effect);
     
     function animate(){
         ctx.clearRect(0,0, canvas.width, canvas.height);
@@ -60,6 +62,6 @@ window.addEventListener('load', function(){
         effect.update();
         window.requestAnimationFrame(animate);
     }
-    animate();
+    //animate();
 
 });
