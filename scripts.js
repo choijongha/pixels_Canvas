@@ -9,22 +9,23 @@ window.addEventListener('load', function(){
     class Particle {
         constructor(effect, x, y, color){
             this.effect = effect;
-            this.x = x;
-            this.y = y;
+            this.x = Math.random() * this.effect.width;
+            this.y = Math.random() * this.effect.height;
             this.originX = Math.floor(x);
             this.originY = Math.floor(y);
             this.color = color;
             this.size = this.effect.gap;
             this.vx = 0;
             this.vy = 0;
+            this.ease = 0.04;
         }
         draw(context){
             context.fillStyle = this.color;
             context.fillRect(this.x, this.y, this.size, this.size);
         }
         update(){
-            this.x += this.vx;
-            this.y += this.vy;
+            this.x += (this.originX - this.x) * this.ease;
+            this.y += (this.originY - this.y) * this.ease;
         }
     }
 
@@ -38,7 +39,7 @@ window.addEventListener('load', function(){
             this.centerY = this.height * 0.5;
             this.x = this.centerX - this.image.width * 0.5;
             this.y = this.centerY - this.image.height * 0.5;
-            this.gap = 1;
+            this.gap = 4;
         }
         init(context){
             /*for (let i = 0; i <100; i++){
