@@ -90,7 +90,7 @@ window.addEventListener('load', function(){
                 this.mouse.y = event.y;
                 //console.log(this.mouse.x, this.mouse.y);
             });
-            window.addEventListener('touchmove', event => {
+            window.addEventListener('touchstart', event => {
                 this.touch.x = event.x;
                 this.touch.y = event.y;
             })
