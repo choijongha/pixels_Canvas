@@ -3,6 +3,11 @@ window.addEventListener('load', function(){
     const ctx = canvas.getContext('2d');
     //console.log(ctx);
 
+    canvas.addEventListener('touchstart', handleStart);
+    canvas.addEventListener('touchend', handleEnd);
+    canvas.addEventListener('touchcancel', handleCancel);
+    canvas.addEventListener('touchmove', handleMove);
+
     canvas.width = this.window.innerWidth;
     canvas.height = this.window.innerHeight;
 
@@ -41,17 +46,6 @@ window.addEventListener('load', function(){
                 this.vy += this.force * Math.sin(this.angle);
             }
 
-            this.tx = this.effect.touch.x - this.x;
-            this.ty = this.effect.touch.y - this.y;
-            this.distance = this.tx * this.tx + this.ty * this.ty;
-            this.force = -this.effect.touch.radius / this.distance;
-
-            if (this.distance < this.effect.touch.radius){
-                this.angle = Math.atan2(this.ty, this.tx);
-                this.vx += this.force * Math.cos(this.angle);
-                this.vy += this.force * Math.sin(this.angle);
-            }
-
             this.x += (this.vx *= this.friction) + (this.originX - this.x) * this.ease;
             this.y += (this.vy *= this.friction) + (this.originY - this.y) * this.ease;
         }
@@ -78,22 +72,12 @@ window.addEventListener('load', function(){
                 x: undefined,
                 y: undefined
             };
-
-            this.touch = {
-                radius: 3000,
-                x: undefined,
-                y: undefined
-            };
             
             window.addEventListener('mousemove', event => {
                 this.mouse.x = event.x;
                 this.mouse.y = event.y;
                 //console.log(this.mouse.x, this.mouse.y);
             });
-            window.addEventListener('touchstart', event => {
-                this.touch.x = event.x;
-                this.touch.y = event.y;
-            })
         }
         init(context){
             /*for (let i = 0; i <100; i++){
