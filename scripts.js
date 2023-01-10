@@ -4,10 +4,11 @@ window.addEventListener('load', function(){
     //console.log(ctx);
 
     canvas.addEventListener('touchstart', handleStart);
-    canvas.addEventListener('touchend', handleEnd);
-    canvas.addEventListener('touchcancel', handleCancel);
-    canvas.addEventListener('touchmove', handleMove);
-
+    //canvas.addEventListener('touchend', handleEnd);
+    //canvas.addEventListener('touchcancel', handleCancel);
+    //canvas.addEventListener('touchmove', handleMove);
+    console.log(handleStart);
+    
     canvas.width = this.window.innerWidth;
     canvas.height = this.window.innerHeight;
 
@@ -124,6 +125,25 @@ window.addEventListener('load', function(){
     }
     animate();
 
+    const ongoingTouches = [];
+    function handleStart(evt) {
+        evt.preventDefault();
+        log('touchstart.');
+        const touches = evt.changedTouches;
+
+        for (let i = 0; i < touches.length; i++) {
+            log(`touchstart: ${i}.`);
+            ongoingTouches.push(copyTouch(touches[i]));
+            const color = colorForTouch(touches[i]);
+            log(`color of touch with id ${touches[i].identifier} = ${color}`);
+            ctx.beginPath();
+            ctx.arc(touches[i].pageX, touches[i].pageY, 4, 0, 2 * Math.PI, false);
+            // a circle at the start
+            ctx.fillStyle = color;
+            ctx.fill();
+        }
+    }
+    
     // warp button
     const warpButton = document.getElementById('warpButton');
     warpButton.addEventListener('click', function(){
