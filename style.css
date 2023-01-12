@@ -28,3 +28,9 @@ button:hover {
     color: black;
     background: white;
 }
+
+#log {
+    height: 200px;
+    width: 600px;;
+    overflow: scroll;
+}

@@ -149,5 +149,4 @@ window.addEventListener('load', function(){
     warpButton.addEventListener('click', function(){
         effect.warp();
     })
-
 });
