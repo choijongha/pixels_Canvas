@@ -106,3 +106,14 @@ function handleCancel(evt){
         //remove it; we're done
     }
 }
+
+function colorForTouch(touch){
+    let r = touch.identifier % 16;
+    let g = Math.floor(touch.identifier / 3) % 16;
+    let b = Math.floor(touch.identifier / 7) % 16;
+    r = r.toString(16); // make it a hex digit
+    g = g.toString(16); // make it a hex digit
+    b = b.toString(16); // make it a hex digit
+    const color = `#${r}${g}${b}`;
+    return color;  
+}
