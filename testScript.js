@@ -43,7 +43,7 @@ function handleMove(evt) {
     
     for (let i =0; i < touches.length; i++) {
         const color = colorForTouch(touches[i]);
-        const idx = ongoingtouchIndexById(touches[i].identifier);
+        const idx = ongoingTouchIndexById(touches[i].identifier);
         
         if(idx >= 0) {
             log(`continuing touch ${idx}`);
@@ -75,7 +75,7 @@ function handleEnd(evt) {
 
     for (let i =0; i < touches.length; i++) {
         const color = colorForTouch(touches[i]);
-        const idx = ongoingtouchIndexById(touches[i].identifier);
+        const idx = ongoingTouchIndexById(touches[i].identifier);
 
         if (idx >= 0){
             ctx.lineWidth = 4;
@@ -101,7 +101,7 @@ function handleCancel(evt){
     const touches = evt.changedTouches;
 
     for (let i = 0; i < touches.length; i++) {
-        let idx = ongoingtouchIndexById(touches[i].identifier);
+        let idx = ongoingTouchIndexById(touches[i].identifier);
         ongoingTouches.splice(idx, 1);
         //remove it; we're done
     }
@@ -120,4 +120,15 @@ function colorForTouch(touch){
 
 function copyTouch ({ identifier, pageX, pageY}) {
     return { identifier, pageX, pageY};
+}
+
+function ongoingTouchIndexById(idToFind){
+    for (let i = 0; i < ongoingTouches.length; i++) {
+        const id = ongoingTouches[i].identifier;
+
+        if (id === idToFind){
+            return i;
+        }
+    }
+    return -1; // not found
 }
