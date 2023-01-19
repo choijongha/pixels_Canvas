@@ -65,3 +65,32 @@ function handleMove(evt) {
         }
     }
 }
+
+function handleEnd(evt) {
+    evt.preventDefault();
+    log("touchend");
+    const el = document.getElementById('cavas');
+    const ctx = el.getContext('2d');
+    const touches = evt.changedTouches;
+
+    for (let i =0; i < touches.length; i++) {
+        const color = colorForTouch(touches[i]);
+        const idx = ongoingtouchIndexById(touches[i].identifier);
+
+        if (idx >= 0){
+            ctx.lineWidth = 4;
+            ctx.fillStyle = color;
+            ctx.beginPath();
+            ctx.moveTo(ongoingTouches[idx].pageX, ongoingTouches[idx].pageY);
+            ctx.lineTo(touches[i].pageX, touches[i].pageY);
+            ctx.fillRect(touches[i].pageX - 4, touches[i].pageY - 4, 8, 8);
+            
+            // and a square at the end
+            ongoingTouches.splice(idx,1);
+
+            //remove it; we're done
+        } else {
+            log('can\'t figure out which touch to end');
+        }
+    }
+}
