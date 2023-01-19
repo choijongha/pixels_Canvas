@@ -21,7 +21,7 @@ function handleStart(evt) {
     for (let i =0; i < touches.length; i++) {
         log(`touchstart: ${i}.`);
         
-        ongoingTouches.push(copyTocuh(touches[i]));
+        ongoingTouches.push(copyTouch(touches[i]));
 
         const color = colorForTouch(touches[i]);
         log(`color fo touch with id ${touches[i].identifier} = ${color}`);
@@ -58,7 +58,7 @@ function handleMove(evt) {
                 ctx.strokeStyle = color;
                 ctx.stroke();
                 
-                ongoingTouches.splice(idx, 1, copyTocuh(touches[i]));
+                ongoingTouches.splice(idx, 1, copyTouch(touches[i]));
                 // swap in the new touch record
             } else {
                 log('can\'t figure out which touch to continue');
@@ -116,4 +116,8 @@ function colorForTouch(touch){
     b = b.toString(16); // make it a hex digit
     const color = `#${r}${g}${b}`;
     return color;  
+}
+
+function copyTouch ({ identifier, pageX, pageY}) {
+    return { identifier, pageX, pageY};
 }
