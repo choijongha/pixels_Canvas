@@ -94,3 +94,15 @@ function handleEnd(evt) {
         }
     }
 }
+
+function handleCancel(evt){
+    evt.preventDefault();
+    log('touchcancel.');
+    const touches = evt.changedTouches;
+
+    for (let i = 0; i < touches.length; i++) {
+        let idx = ongoingtouchIndexById(touches[i].identifier);
+        ongoingTouches.splice(idx, 1);
+        //remove it; we're done
+    }
+}
