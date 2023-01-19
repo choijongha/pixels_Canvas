@@ -132,3 +132,8 @@ function ongoingTouchIndexById(idToFind){
     }
     return -1; // not found
 }
+
+function log(msg) {
+    const container = document.getElementById('log');
+    container.textContent = `${msg} \n${container.textContent}`;
+}
